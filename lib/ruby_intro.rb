@@ -20,27 +20,61 @@ def max_2_sum(arr)
   
 end
 
-def sum_to_n?(arr, number)
-  # YOUR CODE HERE
+def sum_to_n?(arr, n)
+
+  seen_numbers = Set.new
+
+  arr.each do |number|
+
+    complement = n - number
+
+    if seen_numbers.include?(complement)
+      return true
+    end
+
+    seen_numbers.add(number)
+  end
+
+  false
 end
 
 # Part 2
 
 def hello(name)
-  # YOUR CODE HERE
+  "Hello, #{name}"
 end
 
-def starts_with_consonant?(string)
-  # YOUR CODE HERE
+def starts_with_consonant?(s)
+  return false if s.empty? || !s[0].match?(/[a-zA-Z]/)
+  
+  first_char = s[0].upcase
+  
+  !first_char.match?(/[AEIOU]/)
 end
 
-def binary_multiple_of_4?(string)
-  # YOUR CODE HERE
+def binary_multiple_of_4?(s)
+  return false unless s.match?(/\A[01]+\z/)
+
+  number = s.to_i(2)
+
+  number % 4 == 0
 end
 
 # Part 3
 
 # Object representing a book
 class BookInStock
-  # YOUR CODE HERE
+  attr_accessor :isbn, :price
+
+  def initialize(isbn, price)
+    raise ArgumentError, 'ISBN number cannot be empty' if isbn.empty?
+    raise ArgumentError, 'Price must be greater than zero' if price <= 0
+
+    @isbn = isbn
+    @price = price
+  end
+
+  def price_as_string
+    format('$%.2f', @price)
+  end
 end
